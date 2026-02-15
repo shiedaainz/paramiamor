@@ -3,156 +3,228 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Para Hapzul ❤️</title>
+<title>Mito Eterno ❤️</title>
 
 <style>
 body{
     margin:0;
     font-family:'Segoe UI', sans-serif;
-    background:linear-gradient(135deg,#ff758c,#ff7eb3);
+    background:linear-gradient(180deg,#0f2027,#203a43,#2c5364);
+    overflow:hidden;
     display:flex;
     justify-content:center;
     align-items:center;
     height:100vh;
-    overflow:hidden;
+    color:white;
 }
 
-.contenedor{
+/* estrellas */
+.estrella{
+    position:absolute;
+    width:2px;
+    height:2px;
     background:white;
-    width:90%;
-    max-width:400px;
-    padding:25px;
-    border-radius:20px;
+    animation:brillar 3s infinite alternate;
+}
+@keyframes brillar{
+    from{opacity:0.2;}
+    to{opacity:1;}
+}
+
+/* contenedores */
+.pantalla{
     text-align:center;
-    box-shadow:0 15px 30px rgba(0,0,0,0.2);
-    position:relative;
-    animation:fade 1.5s ease;
+    width:90%;
+    max-width:420px;
+    background:rgba(255,255,255,0.1);
+    backdrop-filter:blur(15px);
+    padding:25px;
+    border-radius:25px;
+    box-shadow:0 0 40px rgba(255,105,180,0.4);
 }
 
-h1{
-    color:#ff4d6d;
-    margin-bottom:10px;
+input{
+    padding:10px;
+    border-radius:20px;
+    border:none;
+    margin-top:10px;
+    width:70%;
+    text-align:center;
 }
 
-p{
-    color:#444;
-    font-size:16px;
-    line-height:1.5;
+button{
+    margin-top:12px;
+    padding:10px 20px;
+    border:none;
+    border-radius:25px;
+    cursor:pointer;
+    background:#ff4da6;
+    color:white;
+}
+
+.foto{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    object-fit:cover;
+    border:3px solid #ff9bd2;
+    margin:10px 0;
+}
+
+.oculto{ display:none; }
+
+.contador{
+    font-size:14px;
+    margin:8px 0;
+    color:#ffb6f2;
 }
 
 .botones{
-    margin-top:20px;
+    margin-top:15px;
     position:relative;
     height:80px;
 }
 
-button{
-    padding:12px 20px;
-    border:none;
-    border-radius:25px;
-    font-size:16px;
-    cursor:pointer;
-    transition:0.3s;
-    position:absolute;
-}
-
-.si{
-    background:#ff4d6d;
-    color:white;
-    left:20%;
-}
-
 .no{
-    background:#ccc;
-    right:20%;
-}
-
-button:active{
-    transform:scale(0.95);
+    background:#888;
+    position:absolute;
 }
 
 .mensaje-final{
-    margin-top:20px;
-    font-weight:bold;
-    color:#ff2e63;
+    margin-top:15px;
     opacity:0;
-    transition:0.6s;
+    transition:1s;
+    font-weight:bold;
+    color:#ffd6f9;
 }
 
-.mostrar{
-    opacity:1;
-}
-
-@keyframes fade{
-    from{transform:scale(0.8);opacity:0;}
-    to{transform:scale(1);opacity:1;}
-}
+.mostrar{ opacity:1; }
 
 .corazon{
     position:absolute;
-    font-size:18px;
-    color:rgba(255,255,255,0.7);
-    animation:flotar 6s linear infinite;
+    font-size:22px;
+    animation:subir 2s forwards;
 }
-
-@keyframes flotar{
-    0%{transform:translateY(100vh);opacity:1;}
-    100%{transform:translateY(-10vh);opacity:0;}
+@keyframes subir{
+    0%{transform:translateY(0);opacity:1;}
+    100%{transform:translateY(-200px);opacity:0;}
 }
 </style>
 </head>
 
 <body>
 
-<div class="contenedor">
-    <h1>Hapzul ❤️</h1>
-    <p>
-        Aunque la distancia nos separe,
-        mi corazón siempre está contigo.
-        Cada día me haces sentir la persona más afortunada.
-    </p>
+<!-- Pantalla contraseña -->
+<div class="pantalla" id="login">
+    <h2>🔒 Solo para Hapzul Malate ❤️</h2>
+    <p>Ingresa la palabra secreta</p>
+    <input type="password" id="clave">
+    <br>
+    <button onclick="verificar()">Entrar</button>
+</div>
 
-    <h3>¿Quieres ser mi San Valentín? 💘</h3>
+<!-- Carta -->
+<div class="pantalla oculto" id="carta">
+    <h2>para lo mas hermoso de mi mundo ❤️</h2>
+
+    <img src="/WhatsApp Image 2026-02-14 at 9.35.48 PM.jpeg" class="foto">
+
+    <p id="historia"></p>
+
+    <div class="contador" id="contador"></div>
+
+    <h3>¿Quieres seguir escribiendo este mito eterno conmigo? 💍</h3>
 
     <div class="botones">
-        <button class="si" onclick="aceptar()">Sí 💖</button>
+        <button onclick="aceptar()">Sí, por siempre 💖</button>
         <button class="no" id="noBtn">No 😢</button>
     </div>
 
     <div id="final" class="mensaje-final">
-        Sabía que dirías que sí 🥰  
+        Entonces que el universo sea testigo ✨  
         Te amo infinitamente ❤️
     </div>
 </div>
 
+<audio id="musica">
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3?filename=romantic-background-112191.mp3" type="audio/mpeg">
+</audio>
+
 <script>
-function aceptar(){
-    document.getElementById("final").classList.add("mostrar");
+
+/* estrellas */
+for(let i=0;i<100;i++){
+    let e=document.createElement("div");
+    e.className="estrella";
+    e.style.top=Math.random()*100+"vh";
+    e.style.left=Math.random()*100+"vw";
+    e.style.animationDuration=(Math.random()*3+2)+"s";
+    document.body.appendChild(e);
 }
 
-let noBtn = document.getElementById("noBtn");
+/* contraseña */
+function verificar(){
+    let clave=document.getElementById("clave").value;
+    if(clave==="amor"){ // CAMBIA CONTRASEÑA
+        document.getElementById("login").classList.add("oculto");
+        document.getElementById("carta").classList.remove("oculto");
+        escribirHistoria();
+    }else{
+        alert("Esa no es la palabra correcta ❤️");
+    }
+}
 
+/* historia animada */
+function escribirHistoria(){
+    let texto="Nuestra historia no comenzó por casualidad... comenzó porque el destino sabía que nuestras almas debían encontrarse. Y aunque la distancia nos pruebe, seguimos eligiéndonos cada día.";
+    let i=0;
+    let intervalo=setInterval(()=>{
+        document.getElementById("historia").innerHTML+=texto[i];
+        i++;
+        if(i>=texto.length) clearInterval(intervalo);
+    },40);
+}
+
+/* contador */
+let inicio=new Date("2019-12-19"); // CAMBIA FECHA
+setInterval(()=>{
+    let ahora=new Date();
+    let diff=ahora-inicio;
+    let dias=Math.floor(diff/(1000*60*60*24));
+    document.getElementById("contador").innerHTML="Llevamos "+dias+" días escribiendo esta historia ❤️";
+},1000);
+
+/* botón no huye */
+let noBtn=document.getElementById("noBtn");
 noBtn.addEventListener("touchstart", mover);
 noBtn.addEventListener("mouseover", mover);
 
 function mover(){
-    let x = Math.random() * 200;
-    let y = Math.random() * 50;
-    noBtn.style.right = "auto";
-    noBtn.style.left = x + "px";
-    noBtn.style.top = y + "px";
+    noBtn.style.left=Math.random()*200+"px";
+    noBtn.style.top=Math.random()*60+"px";
 }
 
-// corazones flotando
-for(let i=0;i<15;i++){
-    let corazon=document.createElement("div");
-    corazon.className="corazon";
-    corazon.innerHTML="❤";
-    corazon.style.left=Math.random()*100+"vw";
-    corazon.style.animationDuration=(Math.random()*3+4)+"s";
-    document.body.appendChild(corazon);
+/* aceptar */
+function aceptar(){
+    document.getElementById("final").classList.add("mostrar");
+    document.getElementById("musica").play();
+    explosion();
+}
+
+function explosion(){
+    for(let i=0;i<25;i++){
+        let c=document.createElement("div");
+        c.className="corazon";
+        c.innerHTML="💖";
+        c.style.left=(window.innerWidth/2 + (Math.random()*150-75))+"px";
+        c.style.top=(window.innerHeight/2)+"px";
+        document.body.appendChild(c);
+        setTimeout(()=>c.remove(),2000);
+    }
 }
 </script>
 
 </body>
 </html>
+
+
