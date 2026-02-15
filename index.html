@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Hapzul ❤️</title>
+
+<style>
+body{
+    margin:0;
+    font-family:'Segoe UI', sans-serif;
+    background:linear-gradient(135deg,#ff758c,#ff7eb3);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    overflow:hidden;
+}
+
+.contenedor{
+    background:white;
+    width:90%;
+    max-width:400px;
+    padding:25px;
+    border-radius:20px;
+    text-align:center;
+    box-shadow:0 15px 30px rgba(0,0,0,0.2);
+    position:relative;
+    animation:fade 1.5s ease;
+}
+
+h1{
+    color:#ff4d6d;
+    margin-bottom:10px;
+}
+
+p{
+    color:#444;
+    font-size:16px;
+    line-height:1.5;
+}
+
+.botones{
+    margin-top:20px;
+    position:relative;
+    height:80px;
+}
+
+button{
+    padding:12px 20px;
+    border:none;
+    border-radius:25px;
+    font-size:16px;
+    cursor:pointer;
+    transition:0.3s;
+    position:absolute;
+}
+
+.si{
+    background:#ff4d6d;
+    color:white;
+    left:20%;
+}
+
+.no{
+    background:#ccc;
+    right:20%;
+}
+
+button:active{
+    transform:scale(0.95);
+}
+
+.mensaje-final{
+    margin-top:20px;
+    font-weight:bold;
+    color:#ff2e63;
+    opacity:0;
+    transition:0.6s;
+}
+
+.mostrar{
+    opacity:1;
+}
+
+@keyframes fade{
+    from{transform:scale(0.8);opacity:0;}
+    to{transform:scale(1);opacity:1;}
+}
+
+.corazon{
+    position:absolute;
+    font-size:18px;
+    color:rgba(255,255,255,0.7);
+    animation:flotar 6s linear infinite;
+}
+
+@keyframes flotar{
+    0%{transform:translateY(100vh);opacity:1;}
+    100%{transform:translateY(-10vh);opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="contenedor">
+    <h1>Hapzul ❤️</h1>
+    <p>
+        Aunque la distancia nos separe,
+        mi corazón siempre está contigo.
+        Cada día me haces sentir la persona más afortunada.
+    </p>
+
+    <h3>¿Quieres ser mi San Valentín? 💘</h3>
+
+    <div class="botones">
+        <button class="si" onclick="aceptar()">Sí 💖</button>
+        <button class="no" id="noBtn">No 😢</button>
+    </div>
+
+    <div id="final" class="mensaje-final">
+        Sabía que dirías que sí 🥰  
+        Te amo infinitamente ❤️
+    </div>
+</div>
+
+<script>
+function aceptar(){
+    document.getElementById("final").classList.add("mostrar");
+}
+
+let noBtn = document.getElementById("noBtn");
+
+noBtn.addEventListener("touchstart", mover);
+noBtn.addEventListener("mouseover", mover);
+
+function mover(){
+    let x = Math.random() * 200;
+    let y = Math.random() * 50;
+    noBtn.style.right = "auto";
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+}
+
+// corazones flotando
+for(let i=0;i<15;i++){
+    let corazon=document.createElement("div");
+    corazon.className="corazon";
+    corazon.innerHTML="❤";
+    corazon.style.left=Math.random()*100+"vw";
+    corazon.style.animationDuration=(Math.random()*3+4)+"s";
+    document.body.appendChild(corazon);
+}
+</script>
+
+</body>
+</html>
