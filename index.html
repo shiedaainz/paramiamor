@@ -147,7 +147,7 @@ button{
 </div>
 
 <audio id="musica">
-<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3?filename=romantic-background-112191.mp3" type="audio/mpeg">
+<source src="mihapzul.mp3" type="audio/mpeg">
 </audio>
 
 <script>
@@ -207,9 +207,23 @@ function mover(){
 /* aceptar */
 function aceptar(){
     document.getElementById("final").classList.add("mostrar");
-    document.getElementById("musica").play();
-    explosion();
+
+    let audio = document.getElementById("musica");
+    audio.volume = 0;
+    audio.play();
+
+    // Fade in suave
+    let fade = setInterval(function(){
+        if(audio.volume < 0.7){
+            audio.volume += 0.03;
+        } else {
+            clearInterval(fade);
+        }
+    }, 200);
+
+    galaxia();
 }
+
 
 function explosion(){
     for(let i=0;i<25;i++){
@@ -222,8 +236,22 @@ function explosion(){
         setTimeout(()=>c.remove(),2000);
     }
 }
+function galaxia(){
+    for(let i=0;i<40;i++){
+        let estrella=document.createElement("div");
+        estrella.className="corazon";
+        estrella.innerHTML="✨";
+        estrella.style.left=(window.innerWidth/2 + (Math.random()*300-150))+"px";
+        estrella.style.top=(window.innerHeight/2 + (Math.random()*300-150))+"px";
+        estrella.style.animationDuration="3s";
+        document.body.appendChild(estrella);
+        setTimeout(()=>estrella.remove(),3000);
+    }
+}
+
 </script>
 
 </body>
 </html>
+
 
